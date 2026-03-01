@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Starter — AI Consultancy for Business Owners</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #1764FF;
+      --blue-light: #3d7fff;
+      --blue-dark:  #0d4fd6;
+      --navy:       #0D1B2E;
+      --navy-mid:   #132238;
+      --navy-card:  #1a2d45;
+      --text-dark:  #16181D;
+      --text-mid:   #4B5563;
+      --text-light: #9CA3AF;
+      --bg-light:   #F7F8FA;
+      --bg-white:   #FFFFFF;
+      --green:      #00C896;
+      --border:     #E5E7EB;
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  24px;
+      --font:       'Inter', 'Aeonik Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg:  0 20px 60px rgba(0,0,0,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text-dark);
+      background: var(--bg-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Utility ───────────────────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 15px; font-weight: 600;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: all .2s ease; white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--blue); color: #fff;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(23,100,255,.35); }
+    .btn-outline {
+      background: transparent; color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .btn-outline:hover { background: var(--blue); color: #fff; }
+    .btn-ghost-white {
+      background: rgba(255,255,255,.12); color: #fff;
+      border: 1.5px solid rgba(255,255,255,.3);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.22); }
+    .btn svg { flex-shrink: 0; }
+
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(23,100,255,.1); color: var(--blue);
+      font-size: 12px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; padding: 6px 14px; border-radius: 100px;
+    }
+
+    /* ─── Announcement Bar ──────────────────────────────────────── */
+    .announce-bar {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .announce-bar a { color: var(--green); text-decoration: none; font-weight: 600; margin-left: 8px; }
+    .announce-bar a:hover { text-decoration: underline; }
+
+    /* ─── Navigation ────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-dark);
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue) 0%, #5b9bff 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { color: #fff; }
+    .nav-logo-text { font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+    .nav-logo-text span { color: var(--blue); }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--text-mid);
+      font-size: 15px; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text-dark); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-actions .btn { padding: 10px 22px; font-size: 14px; }
+
+    /* ─── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      background: var(--bg-white);
+      padding: 80px 0 0;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+    }
+    .hero-content { padding-bottom: 80px; }
+    .hero-tag { margin-bottom: 24px; }
+    .hero-headline {
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+    .hero-headline .highlight {
+      color: var(--blue);
+      position: relative;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero-trust {
+      margin-top: 48px;
+      display: flex; align-items: center; gap: 16px;
+      font-size: 13px; color: var(--text-light);
+    }
+    .hero-trust-avatars {
+      display: flex;
+    }
+    .hero-trust-avatars span {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid #fff;
+      background: linear-gradient(135deg, #c3d4ff, #7ba7ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--blue);
+      margin-left: -8px;
+    }
+    .hero-trust-avatars span:first-child { margin-left: 0; }
+    .hero-trust strong { color: var(--text-dark); }
+
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      object-fit: cover;
+      object-position: top;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 40px;
+      left: -20px;
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 12px;
+      min-width: 220px;
+    }
+    .hero-badge-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue) 0%, #5b9bff 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .hero-badge-text strong { display: block; font-size: 15px; font-weight: 700; color: var(--text-dark); }
+    .hero-badge-text span { font-size: 12px; color: var(--text-mid); }
+    .hero-badge2 {
+      position: absolute;
+      top: 60px;
+      right: -10px;
+      background: var(--navy);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      color: #fff;
+      min-width: 180px;
+    }
+    .hero-badge2 .num { font-size: 28px; font-weight: 800; color: var(--green); line-height: 1; }
+    .hero-badge2 .label { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 4px; }
+
+    /* ─── Logos Bar ─────────────────────────────────────────────── */
+    .logos-bar {
+      background: var(--bg-light);
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .logos-bar-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 28px;
+    }
+    .logos-track {
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap;
+    }
+    .logo-pill {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 15px; font-weight: 700; color: var(--text-mid);
+      opacity: .65; transition: opacity .2s;
+    }
+    .logo-pill:hover { opacity: 1; }
+    .logo-pill-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    /* ─── Services ──────────────────────────────────────────────── */
+    .services {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-tag { margin-bottom: 16px; }
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-mid);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: all .25s ease;
+      cursor: default;
+    }
+    .service-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 8px 32px rgba(23,100,255,.12);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(23,100,255,.12) 0%, rgba(91,155,255,.12) 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .service-title {
+      font-size: 18px; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .service-desc {
+      font-size: 14px; color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ─── How It Works ──────────────────────────────────────────── */
+    .how {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .how-steps { display: flex; flex-direction: column; gap: 0; }
+    .how-step {
+      display: flex; gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .how-step:last-child { border-bottom: none; }
+    .how-step:hover .step-num { background: var(--blue); color: #fff; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--border); color: var(--text-mid);
+      font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .step-content {}
+    .step-title { font-size: 17px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    .step-desc { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+    .how-visual {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      color: #fff;
+    }
+    .how-visual-title { font-size: 22px; font-weight: 700; margin-bottom: 32px; }
+    .how-checklist { display: flex; flex-direction: column; gap: 16px; }
+    .how-check-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,.07);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .check-icon {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .check-icon svg { color: #fff; }
+    .check-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .check-text span { font-size: 13px; color: rgba(255,255,255,.6); }
+
+    /* ─── Stats ─────────────────────────────────────────────────── */
+    .stats {
+      background: var(--navy);
+      padding: 100px 0;
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .stats-content {}
+    .stats-tag { margin-bottom: 20px; }
+    .stats-tag .tag { background: rgba(23,100,255,.2); color: #7ba7ff; }
+    .stats-headline {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .stats-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,.65);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      background: var(--navy-card);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .stat-num {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,.6);
+      font-weight: 500;
+    }
+
+    /* ─── Pitfalls ──────────────────────────────────────────────── */
+    .pitfalls {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+    .pitfalls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+    .pitfall-card {
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .pitfall-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), #5b9bff);
+    }
+    .pitfall-num {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -.04em;
+    }
+    .pitfall-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 10px;
+    }
+    .pitfall-desc {
+      font-size: 14px; color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* ─── Testimonials ──────────────────────────────────────────── */
+    .testimonials {
+      padding: 100px 0;
+      background: var(--bg-light);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+    .testimonial-card {
+      background: var(--bg-white);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: all .25s;
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .testimonial-stars {
+      display: flex; gap: 3px; margin-bottom: 16px;
+    }
+    .star { color: #F59E0B; font-size: 16px; }
+    .testimonial-quote {
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .author-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue) 0%, #5b9bff 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+    .author-name { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+    .author-role { font-size: 12px; color: var(--text-light); }
+
+    /* ─── Meet the Consultant ───────────────────────────────────── */
+    .consultant {
+      padding: 100px 0;
+      background: var(--bg-white);
+    }
+    .consultant-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .consultant-image-wrap {
+      position: relative;
+    }
+    .consultant-image-wrap img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      display: block;
+      box-shadow: var(--shadow-lg);
+    }
+    .consultant-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      box-shadow: 0 12px 40px rgba(23,100,255,.4);
+      text-align: center;
+    }
+    .consultant-badge .num { font-size: 32px; font-weight: 800; line-height: 1; }
+    .consultant-badge .label { font-size: 12px; opacity: .85; margin-top: 4px; }
+    .consultant-content {}
+    .consultant-tag { margin-bottom: 20px; }
+    .consultant-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .consultant-name {
+      font-size: 22px; font-weight: 800;
+      color: var(--blue); margin-bottom: 4px;
+    }
+    .consultant-role {
+      font-size: 14px; color: var(--text-light);
+      font-weight: 500; margin-bottom: 24px;
+    }
+    .consultant-bio {
+      font-size: 16px; color: var(--text-mid);
+      line-height: 1.75; margin-bottom: 32px;
+    }
+    .consultant-credentials {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 36px;
+    }
+    .credential {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--text-dark); font-weight: 500;
+    }
+    .credential-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0;
+    }
+
+    /* ─── CTA Section ───────────────────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #0a2540 100%);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(23,100,255,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-tag { margin-bottom: 24px; }
+    .cta-tag .tag { background: rgba(23,100,255,.25); color: #7ba7ff; }
+    .cta-title {
+      font-size: clamp(32px, 4.5vw, 54px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,.65);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,.4);
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.7);
+      padding: 64px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 32px;
+    }
+    .footer-brand {}
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: #fff;
+      margin-bottom: 16px;
+    }
+    .footer-logo-icon {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--blue) 0%, #5b9bff 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-logo-text { font-size: 17px; font-weight: 700; }
+    .footer-logo-text span { color: var(--blue); }
+    .footer-desc {
+      font-size: 14px; line-height: 1.65;
+      color: rgba(255,255,255,.5);
+      margin-bottom: 24px;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.6);
+      text-decoration: none;
+      transition: all .2s;
+      font-size: 14px;
+    }
+    .social-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: #fff; margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      text-decoration: none; color: rgba(255,255,255,.55);
+      font-size: 14px; transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: rgba(255,255,255,.35);
+    }
+    .footer-bottom a { color: rgba(255,255,255,.5); text-decoration: none; }
+    .footer-bottom a:hover { color: #fff; }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-image-wrap { order: -1; }
+      .hero-image-wrap img { border-radius: var(--radius-lg); max-height: 400px; object-fit: cover; }
+      .hero-badge, .hero-badge2 { display: none; }
+      .how-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr; }
+      .pitfalls-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .consultant-inner { grid-template-columns: 1fr; }
+      .consultant-badge { bottom: 16px; right: 16px; }
+      .nav-links { display: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announce-bar">
+    🚀 New: Free AI Readiness Assessment for Business Owners — Limited spots available.
+    <a href="#cta">Claim yours →</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text">AI <span>Starter</span></span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#consultant">About</a></li>
+          <li><a href="#testimonials">Results</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="#cta" class="btn btn-outline">Learn More</a>
+          <a href="#cta" class="btn btn-primary">
+            Book Free Call
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="tag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              AI Consultancy for Business Owners
+            </span>
+          </div>
+          <h1 class="hero-headline">
+            Start AI the right way.<br />
+            <span class="highlight">Avoid the pitfalls.</span><br />
+            Grow faster.
+          </h1>
+          <p class="hero-sub">
+            AI Starter guides business owners through the complex world of artificial intelligence — helping you identify the right tools, avoid costly mistakes, and implement AI strategies that actually deliver results.
+          </p>
+          <div class="hero-actions">
+            <a href="#cta" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;">
+              Book Your Free Strategy Call
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#how" class="btn btn-outline" style="padding: 16px 28px; font-size: 16px;">See How It Works</a>
+          </div>
+          <div class="hero-trust">
+            <div class="hero-trust-avatars">
+              <span>JM</span>
+              <span>SR</span>
+              <span>PK</span>
+              <span>AL</span>
+            </div>
+            <p>Trusted by <strong>200+ business owners</strong> across the UK &amp; Ireland</p>
+          </div>
+        </div>
+        <div class="hero-image-wrap">
+          <img src="paddy.jpg" alt="Paddy — Founder, AI Starter Consultancy" />
+          <div class="hero-badge">
+            <div class="hero-badge-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="hero-badge-text">
+              <strong>AI Readiness Audit</strong>
+              <span>Personalised to your business</span>
+            </div>
+          </div>
+          <div class="hero-badge2">
+            <div class="num">94%</div>
+            <div class="label">Client satisfaction rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos / Trust Bar -->
+  <div class="logos-bar">
+    <div class="container">
+      <p class="logos-bar-label">Clients across industries</p>
+      <div class="logos-track">
+        <div class="logo-pill"><div class="logo-pill-icon">🏗️</div> Construction</div>
+        <div class="logo-pill"><div class="logo-pill-icon">🛍️</div> Retail</div>
+        <div class="logo-pill"><div class="logo-pill-icon">⚖️</div> Legal</div>
+        <div class="logo-pill"><div class="logo-pill-icon">🏥</div> Healthcare</div>
+        <div class="logo-pill"><div class="logo-pill-icon">🏦</div> Finance</div>
+        <div class="logo-pill"><div class="logo-pill-icon">🎓</div> Education</div>
+        <div class="logo-pill"><div class="logo-pill-icon">🍽️</div> Hospitality</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="tag">Our Services</span>
+        </div>
+        <h2 class="section-title">Everything you need to<br />get started with AI</h2>
+        <p class="section-sub">Practical, jargon-free guidance tailored to your business — from first steps to full implementation.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <h3 class="service-title">AI Readiness Audit</h3>
+          <p class="service-desc">A thorough review of your current operations to identify where AI can save time, reduce costs, and create competitive advantage.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🗺️</div>
+          <h3 class="service-title">AI Strategy Roadmap</h3>
+          <p class="service-desc">A clear, prioritised plan showing exactly which AI tools to adopt, in what order, and how to measure success — built around your goals.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3 class="service-title">Pitfall Prevention</h3>
+          <p class="service-desc">Avoid the common and costly mistakes business owners make when adopting AI — from choosing the wrong tools to poor data practices.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚀</div>
+          <h3 class="service-title">Implementation Support</h3>
+          <p class="service-desc">Hands-on guidance as you roll out AI tools across your business, including team training, workflow integration, and ongoing optimisation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how" id="how">
+    <div class="container">
+      <div class="how-grid">
+        <div>
+          <div class="section-tag" style="margin-bottom: 16px;">
+            <span class="tag">The Process</span>
+          </div>
+          <h2 class="section-title" style="text-align:left; margin-bottom: 16px;">A proven path from<br />confusion to clarity</h2>
+          <p class="section-sub" style="text-align:left; margin: 0 0 40px;">We've helped hundreds of business owners navigate AI adoption with confidence. Here's how we do it.</p>
+          <div class="how-steps">
+            <div class="how-step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Discovery Call</div>
+                <div class="step-desc">We start with a free 30-minute call to understand your business, your goals, and your current challenges. No jargon, no pressure.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">AI Readiness Assessment</div>
+                <div class="step-desc">We audit your existing processes, tools, and data to identify the highest-impact AI opportunities specific to your business.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Custom Strategy Delivery</div>
+                <div class="step-desc">You receive a clear, prioritised roadmap with specific tool recommendations, timelines, and expected outcomes.</div>
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Guided Implementation</div>
+                <div class="step-desc">We stay with you through rollout — troubleshooting, training your team, and ensuring AI actually works for your business.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="how-visual">
+          <h3 class="how-visual-title">What you'll walk away with</h3>
+          <div class="how-checklist">
+            <div class="how-check-item">
+              <div class="check-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="check-text">
+                <strong>A clear AI strategy</strong>
+                <span>Tailored to your business size, industry, and budget</span>
+              </div>
+            </div>
+            <div class="how-check-item">
+              <div class="check-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="check-text">
+                <strong>Vetted tool recommendations</strong>
+                <span>Only tools that are proven, affordable, and right for you</span>
+              </div>
+            </div>
+            <div class="how-check-item">
+              <div class="check-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="check-text">
+                <strong>Risk mitigation plan</strong>
+                <span>Avoid the pitfalls that derail most AI projects</span>
+              </div>
+            </div>
+            <div class="how-check-item">
+              <div class="check-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="check-text">
+                <strong>Ongoing expert support</strong>
+                <span>We're with you every step of the way</span>
+              </div>
+            </div>
+            <div class="how-check-item">
+              <div class="check-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="check-text">
+                <strong>Measurable ROI targets</strong>
+                <span>Clear metrics so you know AI is delivering value</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-inner">
+        <div class="stats-content">
+          <div class="stats-tag">
+            <span class="tag">The Numbers</span>
+          </div>
+          <h2 class="stats-headline">Real results for<br />real businesses</h2>
+          <p class="stats-sub">Our clients don't just adopt AI — they transform how their businesses operate. Here's what the data shows across our client base.</p>
+          <a href="#cta" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;">
+            Get Your Free Assessment
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">40%</div>
+            <div class="stat-label">Average reduction in manual admin time</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3×</div>
+            <div class="stat-label">Faster content and proposal creation</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Business owners successfully guided</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">94%</div>
+            <div class="stat-label">Client satisfaction and repeat engagement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Pitfalls -->
+  <section class="pitfalls" id="pitfalls">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="tag">Common Pitfalls</span>
+        </div>
+        <h2 class="section-title">The mistakes we help<br />you avoid</h2>
+        <p class="section-sub">Most business owners make the same avoidable errors when starting with AI. We've seen them all — and we'll make sure you don't repeat them.</p>
+      </div>
+      <div class="pitfalls-grid">
+        <div class="pitfall-card">
+          <div class="pitfall-num">01</div>
+          <h3 class="pitfall-title">Chasing the wrong tools</h3>
+          <p class="pitfall-desc">With thousands of AI tools on the market, most businesses waste months and money on platforms that don't fit their needs. We cut through the noise and match you with what actually works for your specific context.</p>
+        </div>
+        <div class="pitfall-card">
+          <div class="pitfall-num">02</div>
+          <h3 class="pitfall-title">No clear strategy or ROI plan</h3>
+          <p class="pitfall-desc">Jumping into AI without a strategy leads to fragmented tools, frustrated teams, and no measurable return. We build you a coherent plan with clear milestones and success metrics from day one.</p>
+        </div>
+        <div class="pitfall-card">
+          <div class="pitfall-num">03</div>
+          <h3 class="pitfall-title">Ignoring data quality and privacy</h3>
+          <p class="pitfall-desc">AI is only as good as the data it works with. Many businesses overlook data hygiene and GDPR compliance, creating serious risk. We ensure your AI foundation is solid and legally sound.</p>
+        </div>
+        <div class="pitfall-card">
+          <div class="pitfall-num">04</div>
+          <h3 class="pitfall-title">Underestimating change management</h3>
+          <p class="pitfall-desc">Technology is the easy part — getting your team to adopt it is the real challenge. We provide structured change management support so AI adoption sticks and delivers lasting value.</p>
+        </div>
+        <div class="pitfall-card">
+          <div class="pitfall-num">05</div>
+          <h3 class="pitfall-title">Over-automating too quickly</h3>
+          <p class="pitfall-desc">Automating broken processes just makes them break faster. We help you identify which workflows are ready for AI and which need to be redesigned first — saving you from costly mistakes.</p>
+        </div>
+        <div class="pitfall-card">
+          <div class="pitfall-num">06</div>
+          <h3 class="pitfall-title">Going it alone without expertise</h3>
+          <p class="pitfall-desc">AI is moving fast. Without an experienced guide, you risk falling behind, making expensive errors, or missing the opportunities that matter most. That's exactly what AI Starter is here for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="tag">Client Results</span>
+        </div>
+        <h2 class="section-title">What our clients say</h2>
+        <p class="section-sub">Business owners across the UK and Ireland share their experience working with AI Starter.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">"Before AI Starter, I'd wasted nearly €8,000 on tools that didn't work for us. Within six weeks of working with Paddy, we had a clear strategy and were already seeing time savings across our team."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SM</div>
+            <div>
+              <div class="author-name">Sarah Murphy</div>
+              <div class="author-role">Managing Director, Murphy &amp; Co. Solicitors</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">"I was completely overwhelmed by AI — ChatGPT, automation, agents... I didn't know where to start. AI Starter gave me a simple, practical roadmap and I've already cut my admin time by 30%."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JO</div>
+            <div>
+              <div class="author-name">James O'Brien</div>
+              <div class="author-role">Owner, O'Brien Construction Ltd</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="testimonial-quote">"The pitfall prevention alone was worth every penny. We avoided a very expensive CRM integration mistake and instead implemented a solution that actually fits how our team works."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CK</div>
+            <div>
+              <div class="author-name">Claire Kelly</div>
+              <div class="author-role">CEO, Kelly Retail Group</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Consultant -->
+  <section class="consultant" id="consultant">
+    <div class="container">
+      <div class="consultant-inner">
+        <div class="consultant-image-wrap">
+          <img src="paddy.jpg" alt="Paddy — Founder, AI Starter" />
+          <div class="consultant-badge">
+            <div class="num">15+</div>
+            <div class="label">Years in business<br />technology</div>
+          </div>
+        </div>
+        <div class="consultant-content">
+          <div class="consultant-tag">
+            <span class="tag">Meet Your Consultant</span>
+          </div>
+          <h2 class="consultant-title">Practical AI expertise,<br />built for business owners</h2>
+          <div class="consultant-name">Paddy</div>
+          <div class="consultant-role">Founder &amp; Lead Consultant, AI Starter</div>
+          <p class="consultant-bio">
+            With over 15 years of experience helping businesses adopt new technology, Paddy founded AI Starter after seeing too many business owners make the same costly mistakes when trying to implement AI. His approach is refreshingly practical — no hype, no jargon, just clear guidance that gets results.
+          </p>
+          <p class="consultant-bio" style="margin-top: -16px;">
+            Having worked across construction, retail, legal, healthcare, and financial services, Paddy understands that every business is different. He takes the time to understand your specific challenges before recommending any solution.
+          </p>
+          <div class="consultant-credentials">
+            <div class="credential">
+              <div class="credential-dot"></div>
+              Certified AI Strategy Consultant
+            </div>
+            <div class="credential">
+              <div class="credential-dot"></div>
+              Former Head of Digital Transformation, Enterprise Ireland
+            </div>
+            <div class="credential">
+              <div class="credential-dot"></div>
+              200+ businesses guided through AI adoption
+            </div>
+            <div class="credential">
+              <div class="credential-dot"></div>
+              Regular speaker at SME and technology conferences
+            </div>
+          </div>
+          <a href="#cta" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px;">
+            Book a Call with Paddy
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-tag">
+          <span class="tag">Get Started Today</span>
+        </div>
+        <h2 class="cta-title">Ready to start your<br />AI journey the right way?</h2>
+        <p class="cta-sub">Book a free 30-minute strategy call with Paddy. No sales pitch — just an honest conversation about where AI can make the biggest difference in your business.</p>
+        <div class="cta-actions">
+          <a href="mailto:hello@aistarter.ie" class="btn btn-primary" style="padding: 18px 36px; font-size: 17px;">
+            Book Your Free Strategy Call
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="mailto:hello@aistarter.ie" class="btn btn-ghost-white" style="padding: 18px 32px; font-size: 17px;">
+            Send an Enquiry
+          </a>
+        </div>
+        <p class="cta-note">Free 30-minute call · No obligation · Honest, practical advice</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="footer-logo">
+            <div class="footer-logo-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span class="footer-logo-text">AI <span>Starter</span></span>
+          </a>
+          <p class="footer-desc">Helping business owners across the UK &amp; Ireland adopt AI with confidence — avoiding the pitfalls and unlocking real, measurable value.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" title="LinkedIn">in</a>
+            <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
+            <a href="#" class="social-btn" title="YouTube">▶</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">AI Readiness Audit</a></li>
+            <li><a href="#services">Strategy Roadmap</a></li>
+            <li><a href="#services">Pitfall Prevention</a></li>
+            <li><a href="#services">Implementation Support</a></li>
+            <li><a href="#services">Team Training</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="#">Construction</a></li>
+            <li><a href="#">Legal &amp; Professional</a></li>
+            <li><a href="#">Retail</a></li>
+            <li><a href="#">Healthcare</a></li>
+            <li><a href="#">Finance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#consultant">About Paddy</a></li>
+            <li><a href="#testimonials">Client Results</a></li>
+            <li><a href="#">Blog &amp; Resources</a></li>
+            <li><a href="#cta">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 AI Starter Consultancy. All rights reserved.</span>
+        <span>
+          <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+          <a href="#">Terms of Service</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
